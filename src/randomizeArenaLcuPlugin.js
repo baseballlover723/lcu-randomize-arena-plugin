@@ -11,6 +11,7 @@ const CONVERSATIONS_EVENT = 'OnJsonApiEvent_lol-chat_v1_conversations';
 const TEAMS_LIST_HEADER = '⠀\nArena Teams';
 const MESSAGE_RETRY_PERIOD = 200;
 const NOT_SELF_MIN_DELAY = 750; // ms
+const DOUBLE_UP_QUEUES = new Set([1160]);
 
 export default class RandomizeArenaLcuPlugin extends LcuPlugin {
   constructor(alwaysNewTeams = false) {
@@ -112,7 +113,7 @@ export default class RandomizeArenaLcuPlugin extends LcuPlugin {
 
       // check if arena
       const lobby = await this.getLobby();
-      if (lobby.data.gameConfig.maxLobbySize !== 16 && lobby.data.gameConfig.queueId !== 1160) {
+      if (lobby.data.gameConfig.maxLobbySize !== 16 && DOUBLE_UP_QUEUES.has(lobby.data.gameConfig.queueId)) {
         this.log('not arena or double up, ignoring');
         return;
       }
