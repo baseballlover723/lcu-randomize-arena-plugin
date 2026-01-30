@@ -113,7 +113,7 @@ export default class RandomizeArenaLcuPlugin extends LcuPlugin {
 
       // check if arena
       const lobby = await this.getLobby();
-      if (lobby.data.gameConfig.maxLobbySize !== 16 && DOUBLE_UP_QUEUES.has(lobby.data.gameConfig.queueId)) {
+      if (lobby.data.gameConfig.maxLobbySize !== 16 && !DOUBLE_UP_QUEUES.has(lobby.data.gameConfig.queueId)) {
         this.log('not arena or double up, ignoring');
         return;
       }
